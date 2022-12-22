@@ -1,34 +1,45 @@
 // Node class
 class Node {
     constructor(int) {
-        this.value = int;
-        this.left = null;
-        this.right = null;
+    this.value = int;
+    this.left = null;
+    this.right = null;
     }
 }
+
 
 // Tree class
-// - accepts an array when initialized
-// - root attribute (assigned by buildTree)
 class Tree {
-    constructor(){
+    constructor(array) {
         this.root = null;
     }
-    buildTree(array, startIndex, endIndex) {
+
+    buildTree(array, start, end) {
         // Base case
-        if (startIndex > endIndex){return NULL}
-        // Find root index
-        let i =  Math.round((startIndex + endIndex ) / 2);
-        this.root = new Node(array[i]); // Make root node
-        // Build branches
-        this.root.left = buildTree(array, startIndex, i - 1);
-        this.root.right = buildTree(array, i + 1, endIndex);
-        return this.root;
+        if (start > end) { return null }
+    
+        // Create head
+        let mid
+        if ((end + start) % 2 === 0) {
+            mid = (end + start) / 2;
+        } else {
+            mid = (((end + start) / 2) + .5);
+        }
+    
+        let root = new Node(array[mid]);
+    
+        // Create head children
+        root.left = this.buildTree(array, start, mid - 1);
+        root.right = this.buildTree(array, mid + 1, end);
+    
+        return root;
     }
 }
 
-let arr = [10, 19, 50, 100, 200, 400, 1000,];
+let arr = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 101, 102];
 
-let tree = new Tree();
-tree = tree.buildTree(arr, 0, arr.length - 1);
-console.log(tree);
+let tree = new Tree(arr);
+tree.root = tree.buildTree(arr, 0, arr.length - 1, 'mid');
+console.log('\n');
+console.log('root: ', tree.root);
+// console.log('tree: ', tree.root.left);
