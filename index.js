@@ -19,6 +19,12 @@ function getChildValues(node, deleteMe, arr){ // Recursively gets values from a 
     if (node.value !== deleteMe){ arr.push(node.value);}
     getChildValues(node.left, deleteMe, arr);
     getChildValues(node.right, deleteMe, arr);
+    
+    return arr.sort(function compare(a, b) {
+        if (a < b) {return -1}
+        if (a > b) {return 1}
+        return 0;
+    });
 }
 
 
@@ -49,47 +55,54 @@ class Tree {
         return root;
     }
 
-    insert(num, node){
+    insert(num, node) {
         // find where the number belongs in the tree
         if (num > node.value) {
-            if (node.right === null) {
-                num = new Node(num) // convert number into node
-                node.right = num// add number to tree
-                return;
-            }
-            return this.insert(num, node.right);
-        } else if (num < node.value) {
-            if (node.left === null) {
-                num = new Node(num) // convert number into node
-                node.left = num// add number to tree
-                return;
-            }
-            return this.insert(num, node.left);
-        }
-        // If number is duplicate return error message
-        console.log('Duplicate numbers are not allowed.');
-    }
-    delete(num, node, parent){
-        // If node.value != num, keep searching
-        if (num > node.value) {
-            return this.insert(num, node.right, node);
-        } else if (num < node.value) {
-            return this.insert(num, node.left, node);
-        }
-        // If node.value = num
-        // Find node in relation to parent
-        let parentSide = parent.left === node ? parent.left : parent.right;
-        if (node.left === null && node.right === null){
-            // If node has no children, set to null
-            parentSide = null;
+        if (node.right === null) {
+            num = new Node(num) // convert number into node
+            node.right = num// add number to tree
             return;
         }
-        // Get node's descendant values in a sorted array
+        return this.insert(num, node.right);
+        } else if (num < node.value) {
+        if (node.left === null) {
+            num = new Node(num) // convert number into node
+            node.left = num// add number to tree
+            return;
+        }
+        return this.insert(num, node.left);
+        } else if (num === node.value) {
+            // If number is duplicate print error message & return node
+            console.log('Duplicate numbers are not allowed.');
+            return node;
+        }
+    }
+    
+    delete(num, node, parent) {
+        if (node === null) {return} // If node not found
+        if (num > node.value) { 
+            return this.delete(num, node.right, node);// Search right side of tree
+        } else if (num < node.value) {
+            return this.delete(num, node.left, node); // Search left side of tree
+        } else if (num === node.value) {
+        if (node.left === null && node.right === null) {
+            // If node has no children, set to null
+            parent.left === node ? parent.left = null : parent.right = null;
+            return;
+        }
+        // Get node descendants' values in a sorted array
         let arr = getChildValues(node, node.value, []);
-        // Find new root by rebuilding branch without node's value
-        let root = buildTree(arr, 0, arr.length - 1);
+        // Rebuild branch without node's value
+        let root = this.buildTree(arr, 0, arr.length - 1);
+        if (node === this.root) {
+            this.root = root; // If deleting root, reassign to new root value
+            return;
+        }
         // Replace node with new root
-        parentSide = root;
+        parent.left === node ? parent.left = root : parent.right = root;
+        return;
+        }
+        console.log('error');
         return;
     }
 }
