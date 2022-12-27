@@ -7,6 +7,20 @@ class Node {
     }
 }
 
+// Helpers
+function getChildValues(node, deleteMe, arr){ // Recursively gets values from a branch
+    if (node === null){
+        return arr.sort(function compare(a, b) {
+            if (a < b) {return -1}
+            if (a > b) {return 1}
+            return 0;
+        });
+    }
+    if (node.value !== deleteMe){ arr.push(node.value);}
+    getChildValues(node.left, deleteMe, arr);
+    getChildValues(node.right, deleteMe, arr);
+}
+
 
 // Tree class
 class Tree {
@@ -63,30 +77,20 @@ class Tree {
             return this.insert(num, node.left, node);
         }
         // If node.value = num
-        let hasNoChild = node.left === null && node.right === null;
-        if (parent.left === node){
-            if (hasNoChild){
-                parent.left = null;
-                return;
-            }
-            parent.left = node.right;
-            if (node.right.left === null){
-                node.right.left = node.left;
-                return;
-            }
+        // Find node in relation to parent
+        let parentSide = parent.left === node ? parent.left : parent.right;
+        if (node.left === null && node.right === null){
+            // If node has no children, set to null
+            parentSide = null;
+            return;
         }
-        if (parent.right === node){
-            if (hasNoChild){
-                parent.right = null;
-                return;
-            }
-            parent.right = node.left;
-            if (node.left.right === null){
-                node.left.right = node.right;
-                return;
-            }
-        }
-        
+        // Get node's descendant values in a sorted array
+        let arr = getChildValues(node, node.value, []);
+        // Find new root by rebuilding branch without node's value
+        let root = buildTree(arr, 0, arr.length - 1);
+        // Replace node with new root
+        parentSide = root;
+        return;
     }
 }
 
