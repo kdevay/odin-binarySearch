@@ -19,7 +19,7 @@ function getChildValues(node, deleteMe, arr){ // Recursively gets values from a 
     if (node.value !== deleteMe){ arr.push(node.value);}
     getChildValues(node.left, deleteMe, arr);
     getChildValues(node.right, deleteMe, arr);
-    
+
     return arr.sort(function compare(a, b) {
         if (a < b) {return -1}
         if (a > b) {return 1}
@@ -104,6 +104,16 @@ class Tree {
         }
         console.log('error');
         return;
+    }
+    find(num, node){
+        if (node === null) {return} // If node not found
+        if (num > node.value) { 
+            return this.find(num, node.right);// Search right side of tree
+        } else if (num < node.value) {
+            return this.find(num, node.left); // Search left side of tree
+        } else if (num === node.value) {
+            return node;
+        }
     }
 }
 
