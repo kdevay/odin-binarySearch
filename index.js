@@ -34,6 +34,60 @@ class Tree {
     
         return root;
     }
+
+    insert(num, node){
+        // find where the number belongs in the tree
+        if (num > node.value) {
+            if (node.right === null) {
+                num = new Node(num) // convert number into node
+                node.right = num// add number to tree
+                return;
+            }
+            return this.insert(num, node.right);
+        } else if (num < node.value) {
+            if (node.left === null) {
+                num = new Node(num) // convert number into node
+                node.left = num// add number to tree
+                return;
+            }
+            return this.insert(num, node.left);
+        }
+        // If number is duplicate return error message
+        console.log('Duplicate numbers are not allowed.');
+    }
+    delete(num, node, parent){
+        // If node.value != num, keep searching
+        if (num > node.value) {
+            return this.insert(num, node.right, node);
+        } else if (num < node.value) {
+            return this.insert(num, node.left, node);
+        }
+        // If node.value = num
+        let hasNoChild = node.left === null && node.right === null;
+        if (parent.left === node){
+            if (hasNoChild){
+                parent.left = null;
+                return;
+            }
+            parent.left = node.right;
+            if (node.right.left === null){
+                node.right.left = node.left;
+                return;
+            }
+        }
+        if (parent.right === node){
+            if (hasNoChild){
+                parent.right = null;
+                return;
+            }
+            parent.right = node.left;
+            if (node.left.right === null){
+                node.left.right = node.right;
+                return;
+            }
+        }
+        
+    }
 }
 
 let arr = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 101, 102];
