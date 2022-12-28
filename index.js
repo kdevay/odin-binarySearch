@@ -115,6 +115,27 @@ class Tree {
             return node;
         }
     }
+    levelOrder(func){
+        // accepts another function as a parameter
+        // traverse the tree in breadth-first(?) level order
+        // passing each node as argument to the provided function) 
+        // return an array of values if no function is given. 
+        
+        let nodeQueue = [];
+        nodeQueue.push(this.root);
+        let nodeCache = [];
+        while (nodeQueue.length > 0) {
+            let currentNode = nodeQueue.shift();
+            if (func !== undefined){func(currentNode)}
+            nodeCache.push(currentNode);
+            if (currentNode.left !== null) {nodeQueue.push(currentNode.left)}
+            if (currentNode.right !== null) {nodeQueue.push(currentNode.right)} 
+        }
+        return nodeCache;
+    }
+    
+        
+    
 }
 
 let arr = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 101, 102];
