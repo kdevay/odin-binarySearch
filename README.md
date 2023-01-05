@@ -1,43 +1,41 @@
 # odin-binarySearch
-binary search tree practice - Build a balanced BST using classes & recursion
+binary search tree practice - Build a balanced BST using classes & recursion - Exclude duplicate values
 
 Node class:
 - value
 - left child
 - right child
 
-Tree class
+Tree class:
 - accepts an array when initialized
 - root attribute (assigned by buildTree)
 
 Specs:
-1. Ignore duplicate values (remove duplicate values from array)
-2. BuildTree Function 
+1. BuildTree Function 
     - converts an array of numbers into a balanced binary tree of Node objects 
     - The buildTree function should return the root node.
-3. Insert/Delete Functions 
+2. Insert/Delete Functions 
     - insert/delete a number from the tree
-4. Find Function
+3. Find Function
     - returns node matching a given value
-5. levelOrder Function 
+4. levelOrder Function 
     - accepts another function as a parameter
-    - (traverse the tree in breadth-first(?) level order, passing each node as argument to the provided function) basically like 'forEach'
+    - traverse the tree in breadth-first level order, passing each node as argument to the provided function
     - use iteration or recursion 
     - return an array of values if no function is given. 
-    - Tip: use an array as a 'queue' track the child nodes yet to be traversed and to add new ones to the list.
-6. InOrder, PreOrder, and PostOrder Functions 
-that accept a function parameter. 
-    - (traverse the tree in depth-first order (?), passing each node as argument to the provided function) basically like 'forEach'
+    - use an array as a 'queue' track the child nodes yet to be traversed and to add new ones to the list.
+5. InOrder, PreOrder, and PostOrder Functions that accept a function parameter. 
+    - traverse the tree in each order (in-, post-, pre-), passing each node as argument to the provided function
     - return an array of values if no function is given. 
-7. height function 
+6. height function 
     - calculates a node's height
     - Height = number of edges in longest path from a given node to a 'leaf'(?) node.
-8. depth function
+7. depth function
     - calculates a node's depth
     - Depth = number of edges in the path between a given node and the root node.
-9. isBalanced function
+8. isBalanced function
     - checks if the tree is balanced (height difference of left and right subtree is <=1 for every node)
-10. ReBalance function 
+9. ReBalance function 
     - re-balances an unbalanced tree. 
     - Tip: You’ll want to use a traversal method to provide a new array to the buildTree function.
 
