@@ -232,7 +232,6 @@ class Tree {
     reBalance() {
         // Create array from tree
         let arr = getChildValues(this.root, 'deleteMe', []);
-        console.log('arr: ', arr)
         // Rebuild tree
         this.buildTree(arr, 0, arr.length - 1);
         return
