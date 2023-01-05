@@ -211,7 +211,7 @@ class Tree {
     }
 }
 
-// Put it all together
+
 // Helper function that generates a random number within a certain range
 function randomNumber(min, max){
     // Max is exclusive, Min is inclusive
@@ -219,11 +219,16 @@ function randomNumber(min, max){
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); 
 }
-  // Create a function that returns an array of random, ascending numbers.
+
+  // 1. Create a function that returns an array of random, ascending numbers.
 function createSortedArr(){
     let length = randomNumber(8 , 50);
     let arr = [];
     while (arr.length < length){
+        let num = randomNumber(1, 99);
+        while (array.includes(num) === true){
+            num = randomNumber(1, 99);
+        }
         arr.push(randomNumber(1, 99));
     }
     // Return sorted array
@@ -233,3 +238,25 @@ function createSortedArr(){
         return 0;
     });
 }
+let arr = createSortedArr();
+
+// 2. Convert that array into a binary search tree.
+let tree = new Tree(arr);
+tree.root = tree.buildTree(arr, 0, arr.length - 1);
+
+// 3. Confirm the tree is balanced (call isBalanced)
+let isBalanced = tree.isBalanced();
+
+// 4. Print all elements in level, pre, post, and in order
+tree.levelOrder(console.log);
+tree.inOrder(console.log);
+tree.preOrder(console.log);
+tree.postOrder(console.log);
+
+// 5. Unbalance the tree by adding several random numbers > 100
+
+
+// 6. Confirm the tree is unbalanced (call isBalanced)
+// 7. Balance the tree (call reBalance)
+// 8. Confirm the tree is balanced (call isBalanced)
+// 9. Print all elements in level, pre, post, and in order
