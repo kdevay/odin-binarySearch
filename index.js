@@ -192,6 +192,14 @@ class Tree {
         if (diff > 1) { return false }
         return true;
     }
+    rebalance(){
+        // Create array from tree
+        let arr = getChildValues(this.root, 'deleteMe', []);
+        console.log('arr: ', arr)
+        // Rebuild tree
+        this.buildTree(arr, 0, arr.length - 1);
+        return
+    }
 }
 
 let arr = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 101, 102];
