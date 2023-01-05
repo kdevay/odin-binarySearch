@@ -204,7 +204,7 @@ class Tree {
     height(node) {
         if (node === null) { return -1 } // Base case
         if (node === undefined) { node = this.root } // Default to full height if called w/o arg
-        return 1+ Math.max(this.height(node.left), this.height(node.right)); // +1 to include current node
+        return 1 + Math.max(this.height(node.left), this.height(node.right)); // +1 to include current node
     }
     // Helper function for calculating node depth (see 7, below)
     depthHelper(node, current, count) {
