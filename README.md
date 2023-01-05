@@ -38,7 +38,7 @@ that accept a function parameter.
 9. isBalanced function
     - checks if the tree is balanced (height difference of left and right subtree is <=1 for every node)
 10. ReBalance function 
-    - rebalances an unbalanced tree. 
+    - re-balances an unbalanced tree. 
     - Tip: You’ll want to use a traversal method to provide a new array to the buildTree function.
 
 Tie it all together:

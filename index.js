@@ -56,7 +56,7 @@ class Tree {
     constructor(array) {
         this.root = null;
     }
-
+    // Converts an array of numbers into a balanced binary tree of Node objects 
     buildTree(array, start, end) {
         // Base case
         if (start > end) { return null }
@@ -77,7 +77,7 @@ class Tree {
     
         return root;
     }
-
+    // Insert a number from the tree
     insert(num, node) {
         // find where the number belongs in the tree
         if (num > node.value) {
@@ -100,7 +100,7 @@ class Tree {
             return node;
         }
     }
-    
+    // Delete a number from the tree
     delete(num, node, parent) {
         if (node === null) {return} // If node not found
         if (num > node.value) { 
@@ -128,6 +128,7 @@ class Tree {
         console.log('error');
         return;
     }
+    // Find a node in the binary tree
     find(num, node){
         if (node === null) {return} // If node not found
         if (num > node.value) { 
@@ -138,6 +139,7 @@ class Tree {
             return node;
         }
     }
+    // Traverse the tree in level order, applying a function to each node along the way
     levelOrder(func){
         let nodeQueue = [];
         nodeQueue.push(this.root);
@@ -152,26 +154,31 @@ class Tree {
         let returnVal = func !== undefined ? 'success' : nodeCache;
         return returnVal;
     }
+    // Traverse the tree in order, applying a function to each node along the way
     inOrder(func) {
         let nodes = helpOrder('in', this.root, [], func);
         if (func === undefined) { return nodes;}
         return nodes;
     }
+    // Traverse the tree in pre-order, applying a function to each node along the way
     preOrder(func) { 
         let nodes = helpOrder('pre', this.root, [], func);
         if (func === undefined){return nodes;}
         return;
     }
+    // Traverse the tree in post order, applying a function to each node along the way
     postOrder(func) { 
         let nodes = helpOrder('post', this.root, [], func);
         if (func === undefined){return nodes;}
         return;
     }
+    // Get node height (distance from given node to outermost leaf)
     height(node) {
         if (node === null) { return -1 } // Base case
         if (node === undefined) { node = this.root } // Default to full height if called w/o arg
         return 1+ Math.max(this.height(node.left), this.height(node.right)); // +1 to include current node
     }
+    // Helper function for calculating node depth
     depthHelper(node, current, count) {
         if (current === null) { return } // If node not found
         if (node === current) { return count } // If node is found
@@ -179,12 +186,13 @@ class Tree {
         if (node.value > current.value) { return this.depthHelper(node, current.right, count + 1) }
         return this.depthHelper(node, current.left, count + 1)
     }
+    // Get node depth (distance from given node to root)
     depth(node) {
         if (node === this.root){ return 0 } // Depth of root is 0
         return this.depthHelper(node, this.root, 0);
     }
+    // Check if tree is balanced (height difference of left and right subtree is <=1)
     isBalanced() {
-        // checks if the tree is balanced (height difference of left and right subtree is <=1)
         let leftSide, rightSide, diff;
         leftSide = this.height(this.root.left) + 1;
         rightSide = this.height(this.root.right) + 1;
@@ -192,6 +200,7 @@ class Tree {
         if (diff > 1) { return false }
         return true;
     }
+    // Rebuild tree so that it is balanced
     rebalance(){
         // Create array from tree
         let arr = getChildValues(this.root, 'deleteMe', []);
@@ -201,11 +210,3 @@ class Tree {
         return
     }
 }
-
-let arr = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 101, 102];
-
-let tree = new Tree(arr);
-tree.root = tree.buildTree(arr, 0, arr.length - 1, 'mid');
-console.log('\n');
-console.log('root: ', tree.root);
-// console.log('tree: ', tree.root.left);
