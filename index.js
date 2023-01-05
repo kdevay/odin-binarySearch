@@ -210,3 +210,26 @@ class Tree {
         return
     }
 }
+
+// Put it all together
+// Helper function that generates a random number within a certain range
+function randomNumber(min, max){
+    // Max is exclusive, Min is inclusive
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); 
+}
+  // Create a function that returns an array of random, ascending numbers.
+function createSortedArr(){
+    let length = randomNumber(8 , 50);
+    let arr = [];
+    while (arr.length < length){
+        arr.push(randomNumber(1, 99));
+    }
+    // Return sorted array
+    return arr.sort(function compare(a, b) {
+        if (a < b) { return -1 }
+        if (a > b) { return 1 }
+        return 0;
+    });
+}
