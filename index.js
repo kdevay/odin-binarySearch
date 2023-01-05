@@ -183,6 +183,15 @@ class Tree {
         if (node === this.root){ return 0 } // Depth of root is 0
         return this.depthHelper(node, this.root, 0);
     }
+    isBalanced() {
+        // checks if the tree is balanced (height difference of left and right subtree is <=1)
+        let leftSide, rightSide, diff;
+        leftSide = this.height(this.root.left) + 1;
+        rightSide = this.height(this.root.right) + 1;
+        diff = leftSide > rightSide ? leftSide - rightSide : rightSide - leftSide;
+        if (diff > 1) { return false }
+        return true;
+    }
 }
 
 let arr = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 101, 102];
